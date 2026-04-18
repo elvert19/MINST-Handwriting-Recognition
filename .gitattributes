@@ -1,0 +1,11 @@
+# Ignore all C, C++, and Fortran files in the language bar
+*.c linguist-vendored
+*.h linguist-vendored
+*.cpp linguist-vendored
+*.cc linguist-vendored
+*.f linguist-vendored
+*.f90 linguist-vendored
+
+# Ignore specific folders like build artifacts
+target/* linguist-vendored
+venv/* linguist-vendored
