@@ -2,7 +2,7 @@
 
 
 
-> 📄 **[Read the Technical White Paper (PDF)](docs/neural_engine_report.pdf)**\
+> 📄 **[Read the Technical White Paper (PDF)](docs/neural_engine_paper.pdf)**\
 
 This is an implementation of the  ([Rust neural_engine](https://github.com/elvert19/neural_engine))
 
