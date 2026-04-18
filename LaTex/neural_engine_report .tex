@@ -66,16 +66,19 @@
 
 % ── Abstract style ────────────────────────────────────────────────────────────
 \renewenvironment{abstract}
- {\small
-  \begin{center}
-  \bfseries \abstractname\vspace{-.5em}\vspace{0pt}
-  \end{center}
-  \list{}{
-    \setlength{\leftmargin}{0.5in}%
+ {\vspace{4pt}%
+  \noindent\rule{\linewidth}{0.4pt}\vspace{4pt}%
+  \small\setlength{\parskip}{5pt}\setlength{\parindent}{0pt}%
+  \begin{center}{\bfseries\abstractname}\end{center}%
+  \vspace{2pt}%
+  \list{}{%
+    \setlength{\leftmargin}{0.45in}%
     \setlength{\rightmargin}{\leftmargin}%
+    \setlength{\topsep}{0pt}%
+    \setlength{\partopsep}{0pt}%
   }%
   \item\relax}
- {\endlist}
+ {\endlist\vspace{4pt}\noindent\rule{\linewidth}{0.4pt}}
 
 % ─────────────────────────────────────────────────────────────────────────────
 \begin{document}
@@ -89,7 +92,7 @@
 \end{center}
 
 \begin{abstract}
-I present \textbf{Neural Engine}, a feed-forward neural network implemented from scratch in Rust and exposed to Python via PyO3. The engine is benchmarked against two Python-based baselines on the MNIST handwritten digit dataset: a pure Python implementation with no C extensions, and a NumPy-backed implementation. Our system achieves \textbf{97.89\%} test accuracy after 20 training epochs, while running \textbf{94$\times$ faster} than pure Python and \textbf{3.3$\times$ faster} than NumPy, with mathematically equivalent convergence. We attribute these gains to contiguous memory layout, BLAS-accelerated matrix multiplication, gradient buffer pre-allocation, and zero-copy data transfer across the Python--Rust boundary via PyO3.
+This paper presents \textbf{Neural Engine}, a feed-forward neural network implemented from scratch in Rust and exposed to Python via PyO3. The engine is benchmarked against two Python-based baselines on the MNIST handwritten digit dataset: a pure Python implementation with no C extensions, and a NumPy-backed implementation. The system achieves \textbf{97.89\%} test accuracy after 20 training epochs, while running \textbf{94$\times$ faster} than pure Python and \textbf{3.3$\times$ faster} than NumPy, with mathematically equivalent convergence. These gains are attributed to contiguous memory layout, BLAS-accelerated matrix multiplication, gradient buffer pre-allocation, and zero-copy data transfer across the Python--Rust boundary via PyO3.
 \end{abstract}
 
 \vspace{14pt}
@@ -99,7 +102,7 @@ I present \textbf{Neural Engine}, a feed-forward neural network implemented from
 
 Python dominates the machine learning landscape due to its expressive syntax and rich ecosystem. However, the Python interpreter imposes a significant runtime overhead through heap-allocated objects, reference counting, and a Global Interpreter Lock (GIL) that prevents true multi-core parallelism. Libraries such as NumPy mitigate this by delegating numerical operations to C and Fortran kernels, but the Python training loop itself remains interpreted, incurring repeated Foreign Function Interface (FFI) overhead and intermediate array allocations.
 
-This report characterises these costs empirically. We implement an identical multilayer perceptron (MLP) architecture in three substrates and measure wall-clock training time and test accuracy on the full 60{,}000-sample MNIST benchmark \cite{lecun1998}:
+This report characterises these costs empirically. An identical multilayer perceptron (MLP) architecture is implemented across three substrates, with wall-clock training time and test accuracy measured on the full 60{,}000-sample MNIST benchmark \cite{lecun1998}:
 
 \begin{enumerate}[leftmargin=*, itemsep=2pt]
   \item \textbf{Neural Engine} --- compiled Rust with BLAS acceleration;
@@ -308,7 +311,7 @@ Na\"{i}ve PyO3 bindings serialised NumPy arrays into Rust \texttt{Vec<f64>} on e
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Conclusion}
 
-We have demonstrated that a Rust-based neural network engine can achieve competitive deep learning accuracy (97.89\% on MNIST) while dramatically outperforming Python-based alternatives in training throughput. The 94$\times$ speedup over pure Python quantifies the interpreter tax in isolation, while the 3.3$\times$ speedup over NumPy demonstrates that systems-level control over memory layout, allocation strategy, and multi-core scheduling yields meaningful gains even when competing against best-in-class scientific Python.
+This work demonstrates that a Rust-based neural network engine can achieve competitive deep learning accuracy (97.89\% on MNIST) while dramatically outperforming Python-based alternatives in training throughput. The 94$\times$ speedup over pure Python quantifies the interpreter tax in isolation, while the 3.3$\times$ speedup over NumPy demonstrates that systems-level control over memory layout, allocation strategy, and multi-core scheduling yields meaningful gains even when competing against best-in-class scientific Python.
 
 Future work includes extending the engine to convolutional layers, GPU offloading via CUDA kernels, and an automatic differentiation graph to replace the hand-written backward pass.
 
