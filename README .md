@@ -1,5 +1,11 @@
 # Neural Engine: MNIST Systems Benchmark
 
+
+
+> 📄 **[Read the Technical White Paper (PDF)](docs/neural_engine_report.pdf)**
+
+A from-scratch deep learning engine implemented in Rust...
+
 A from-scratch deep learning engine implemented in Rust, exposed to Python via [PyO3](https://pyo3.rs/). This project quantifies the **interpreter tax** — the hidden cost of running numerical workloads in Python — by benchmarking an identical MLP architecture across three execution substrates on the full 60,000-sample MNIST dataset.
 
 ---
