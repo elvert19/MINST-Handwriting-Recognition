@@ -5,7 +5,8 @@
 *.cc linguist-vendored
 *.f linguist-vendored
 *.f90 linguist-vendored
-
+# Treat LaTeX as documentation so it doesn't take over the language bar
+*.tex linguist-documentation
 # Ignore specific folders like build artifacts
 target/* linguist-vendored
 venv/* linguist-vendored
