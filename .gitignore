@@ -6,3 +6,5 @@ target/
 build/
 dist/venv./
 tempCodeRunnerFile.py
+venv./
+tempCodeRunnerFile.py
